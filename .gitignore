@@ -1,6 +1,7 @@
 *.swp
 *.o
 build/
+tags
 
 create_proc/read_proc
 create_proc/*.mod.c
