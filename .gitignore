@@ -3,3 +3,10 @@
 build/
 
 create_proc/read_proc
+create_proc/*.mod.c
+create_proc/.*.mod
+create_proc/.*.cmd
+create_proc/Module.*
+create_proc/modules.*
+create_proc/.tmp_versions
+create_proc/*.ko
