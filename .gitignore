@@ -11,3 +11,11 @@ create_proc/Module.*
 create_proc/modules.*
 create_proc/.tmp_versions
 create_proc/*.ko
+
+timer/*.mod.c
+timer/*.*.mod
+timer/*.*.cmd
+timer/Module.*
+timer/modules.*
+timer/.tmp_versions
+timer/*.ko
