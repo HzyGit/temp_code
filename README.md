@@ -7,3 +7,5 @@ create_proc  创建proc并读取
 timer     kernel timer测试程序
 
 php   一些php代码片段
+
+thread  task_struct 内核代码示例模块
