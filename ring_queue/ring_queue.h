@@ -2,6 +2,7 @@
 #define _RING_QUEUE_H
 
 #include <vector>
+#include <glob.h>
 
 template<typename T>
 class RingQueue
@@ -9,20 +10,22 @@ class RingQueue
 	public:
 		RingQueue(int capacity=1024)
 		{
-			_queue.resize(capcity);
+			_queue.resize(capacity+1);
 			clear();
 		}
 
 		RingQueue(const RingQueue &q)=delete;
 
-		int size()const
+		size_t size()const
 		{
-
+			if(_queue.size()==0)
+				return 0;
+			return (_tail-_head+_queue.size())%_queue.size();
 		}
 
-		void capacity(size_t size)
+		size_t capacity()const
 		{
-			return _queue.size();
+			return _queue.size()-1;
 		}
 
 		bool empty()const
@@ -32,7 +35,7 @@ class RingQueue
 
 		bool full()const
 		{
-			
+			return size()==capacity();
 		}
 
 		void clear()
@@ -40,8 +43,32 @@ class RingQueue
 			_head=_tail=0;
 		}
 
-		T& pop();
-		void push(const T &);
+		T& front()
+		{
+			return _queue.at(_head);
+		}
+
+		const T& front()const
+		{
+			return _queue.at(_head);
+		}
+
+		bool pop()
+		{
+			if(empty())
+				return false;
+			_head=next_index(_head);
+			return true;
+		}
+
+		bool push(const T &t)
+		{
+			if(full())
+				return false;
+			_queue.at(_tail)=t;
+			_tail=next_index(_tail);
+			return true;
+		}
 	private:
 		int next_index(int i)const
 		{
@@ -51,24 +78,4 @@ class RingQueue
 		std::vector<T> _queue;
 		size_t _head,_tail;
 };
-
-template<typename T>
-RingQueue<T>::RingQueue(int size)
-{
-	resize(1024);
-}
-
-template<typename T>
-void RingQueue<T>::resize(size_t size)
-{
-	_head=_tail=0;
-	_queue.resize(size);
-}
-
-template<typename T>
-void RingQueue<T>::size()const
-{
-	return _queue.size();
-}
-
 #endif
